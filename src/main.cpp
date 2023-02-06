@@ -303,7 +303,7 @@ const float driveGearRatio = 1/1;
 
 void drive(float inchesL, float inchesR, float speedL, float speedR) {
   MotorDriveL1.spinFor(directionType::fwd, inchesL / wheelCircumference * driveGearRatio, rotationUnits::rev, speedL, velocityUnits::pct, false);
-  MotorDriveR1.spinFor(directionType::fwd, inchesR / wheelCircumference * driveGearRatio, rotationUnits::rev, speedR, velocityUnits::pct, true);
+  MotorDriveR1.spinFor(directionType::fwd, inchesR / wheelCircumference * driveGearRatio, rotationUnits::rev, speedR, velocityUnits::pct, false);
   MotorDriveL2.spinFor(directionType::fwd, inchesL / wheelCircumference * driveGearRatio, rotationUnits::rev, speedL, velocityUnits::pct, false);
   MotorDriveR2.spinFor(directionType::fwd, inchesR / wheelCircumference * driveGearRatio, rotationUnits::rev, speedR, velocityUnits::pct, true);
 }
@@ -312,7 +312,7 @@ void drive(float inches) { drive(inches, inches, defaultAutonSpeed, defaultAuton
 
 void turn(float units, float autonSpeed) {
   MotorDriveL1.spinFor(directionType::fwd, units / wheelCircumference * driveGearRatio, rotationUnits::rev, autonSpeed, velocityUnits::pct, false);
-  MotorDriveR1.spinFor(directionType::fwd, -units / wheelCircumference * driveGearRatio, rotationUnits::rev, autonSpeed, velocityUnits::pct, true);
+  MotorDriveR1.spinFor(directionType::fwd, -units / wheelCircumference * driveGearRatio, rotationUnits::rev, autonSpeed, velocityUnits::pct, false);
   MotorDriveL2.spinFor(directionType::fwd, units / wheelCircumference * driveGearRatio, rotationUnits::rev, autonSpeed, velocityUnits::pct, false);
   MotorDriveR2.spinFor(directionType::fwd, -units / wheelCircumference * driveGearRatio, rotationUnits::rev, autonSpeed, velocityUnits::pct, true);
 }
@@ -337,7 +337,7 @@ void autonomous() {
   *  intakeReverse() - Reverses intake
   *  intakeOff() - Turns off intake
   *
-  *  roller(degrees) - Spins the intake a certain amount of degrees (can be negative)
+  *  roller(degrees) - Spins the intake/roller a certain amount of degrees (can be negative)
   */
 
   flywheelOn(); // Turns flywheel on
@@ -345,6 +345,8 @@ void autonomous() {
 
   drive(24); // Drives forward 1 tile (24 inches)
   turn(10); // Turns 10 (unitless) to the right
+
+  roller(100); // Spins intake/roller 100 degrees forward
    
   fire(); // Shoots
   
